@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import cn.muses.utils.JsonMapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import cn.muses.exceptions.MusesException;
+import cn.muses.utils.JsonMapper;
 import cn.muses.web.model.dto.ChatRequestBodyDTO;
 import cn.muses.web.service.BaseService;
 
@@ -36,8 +36,10 @@ public class ChatService extends BaseService {
 
     @Value("${chat.url}")
     private URI chatUrl;
-    @Value("${chat.secretKey}")
+    @Value("${chat.head.secretKey}")
     private String secretKey;
+    @Value("${chat.head.organization}")
+    private String organization;
     @Value("${chat.model}")
     private String model;
     @Value("${chat.http.connectTimeout}")
@@ -67,6 +69,7 @@ public class ChatService extends BaseService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(this.secretKey);
+        headers.set("OpenAI-Organization", this.organization);
 
         // 构建request
         ChatRequestBodyDTO body = new ChatRequestBodyDTO(this.model, contents.stream().filter(StringUtils::isNotBlank)

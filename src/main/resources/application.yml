@@ -188,7 +188,9 @@ redis:
 # chatGPT
 chat:
   url: https://api.openai.com/v1/chat/completions
-  secretKey: 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
+  head:
+    secretKey: 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
+    organization: org-tNIkaVzqg1RF8ApvJllwQIo1
   model: gpt-3.5-turbo
   http:
     connectTimeout: 5000
