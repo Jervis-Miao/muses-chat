@@ -4,7 +4,6 @@
 
 package cn.muses.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,12 +23,6 @@ public class NormalBeansConfig {
     @Bean("springContextUtils")
     public SpringContextUtils initSpringContextUtils() {
         return new SpringContextUtils();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean(ObjectMapper.class)
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
     }
 
     @Bean

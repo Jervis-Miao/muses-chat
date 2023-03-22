@@ -6,20 +6,13 @@ package cn.muses;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.scheduling.annotation.EnableScheduling;
-
-import cn.muses.config.annotation.EnableDubboProvider;
 
 /**
  * @author jervis
  * @date 2022/11/14.
  */
 @SpringBootApplication
-// @EnableScheduling
-// @EnableAspectJAutoProxy(exposeProxy = true)
-// @EnableDubboProvider
-public class MusesApplication {
+public class MusesChatApplication {
 
     /**
      * 启动
@@ -28,7 +21,7 @@ public class MusesApplication {
      */
     public static void main(String[] args) {
         loadConfiguration();
-        SpringApplication.run(MusesApplication.class, args);
+        SpringApplication.run(MusesChatApplication.class, args);
     }
 
     /**

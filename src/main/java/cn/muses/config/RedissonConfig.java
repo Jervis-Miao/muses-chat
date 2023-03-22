@@ -24,7 +24,6 @@ import org.springframework.context.annotation.Configuration;
  * @author jervis
  * @date 2020/12/1.
  */
-@Configuration
 public class RedissonConfig {
 
     @Value("${redis.sentinel.ser1.host}")

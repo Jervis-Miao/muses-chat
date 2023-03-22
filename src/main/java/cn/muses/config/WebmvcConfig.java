@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -30,12 +29,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.muses.config.webmvc.filter.RequestWrapperFilter;
 import cn.muses.config.webmvc.interceptor.ApiInterceptor;
-import cn.muses.config.webmvc.interceptor.GlobalTokenInterceptor;
 import cn.muses.config.webmvc.interceptor.IApiInterceptorProcessor;
 import cn.muses.constants.MvcConstant;
-import cn.muses.web.model.dto.BaseResponseDTO;
 import cn.muses.exceptions.MusesException;
 import cn.muses.utils.SpringContextUtils;
+import cn.muses.web.model.dto.BaseResponseDTO;
 
 /**
  * @author jervis
@@ -65,17 +63,16 @@ public class WebmvcConfig {
      * @return
      */
     @Bean
-    public WebMvcConfigurer webMvcConfigurer(RedissonClient redisson, ObjectMapper objectMapper,
-        List<IApiInterceptorProcessor> processors) {
+    public WebMvcConfigurer webMvcConfigurer(ObjectMapper objectMapper, List<IApiInterceptorProcessor> processors) {
         WebMvcConfigurer webMvcConfigurer = new WebMvcConfigurer() {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new ApiInterceptor(processors))
                     .addPathPatterns(MvcConstant.API_URL_PREFIX + "/**");
                 // 全局用户上下文拦截器
-                registry.addInterceptor(new GlobalTokenInterceptor(redisson))
-                    .addPathPatterns(MvcConstant.MATERIAL_SALES_PATH_PREFIX + "/**")
-                    .addPathPatterns(MvcConstant.SALE_ESTIMATE_PATH_PREFIX + "/**");
+                // registry.addInterceptor(new GlobalTokenInterceptor(redisson))
+                // .addPathPatterns(MvcConstant.MATERIAL_SALES_PATH_PREFIX + "/**")
+                // .addPathPatterns(MvcConstant.SALE_ESTIMATE_PATH_PREFIX + "/**");
             }
 
             @Override

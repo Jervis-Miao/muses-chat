@@ -23,29 +23,6 @@ import cn.muses.utils.VelocityUtils;
  * @see
  * @since
  */
-@Configuration
 public class VelocityConfig {
 
-    @ConditionalOnClass(VelocityEngine.class)
-    @ConditionalOnProperty({VelocityConstants.VELOCITY_ENABLED_PROPERTY_NAME,
-        VelocityConstants.VELOCITY_TOOLBOX_CONFIG_LOCATION_PROPERTY_NAME})
-    @ConditionalOnMissingBean(ToolManager.class)
-    @Bean
-    public ToolManager toolManager(VelocityEngine velocityEngine, VelocityProperties velocityProperties) {
-        ToolManager toolManager = new ToolManager(false, false);
-        toolManager.setVelocityEngine(velocityEngine);
-        // ToolManager only support load config resource from classpath(without "classpath:") or filesystem
-        String toolConfigLocation = StringUtils.remove(velocityProperties.getToolboxConfigLocation(),
-            ResourceUtils.CLASSPATH_URL_PREFIX).trim();
-        toolManager.configure(toolConfigLocation);
-        return toolManager;
-    }
-
-    @Bean
-    public VelocityUtils velocityUtil(VelocityEngine velocityEngine, ToolManager toolManager,
-        VelocityProperties velocityProperties) {
-        String toolConfigLocation = StringUtils.remove(velocityProperties.getResourceLoaderPath(),
-            ResourceUtils.CLASSPATH_URL_PREFIX).trim();
-        return new VelocityUtils(velocityEngine, toolManager, toolConfigLocation);
-    }
 }
