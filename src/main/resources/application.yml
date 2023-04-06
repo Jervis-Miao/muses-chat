@@ -189,8 +189,8 @@ redis:
 chat:
   url: https://api.openai.com/v1/chat/completions
   head:
-    secretKey: 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
-    organization: org-tNIkaVzqg1RF8ApvJllwQIo1
+    secretKey: secretKey
+    organization: organization
   model: gpt-3.5-turbo
   http:
     connectTimeout: 5000
