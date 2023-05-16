@@ -27,7 +27,7 @@ public class MusesChatApplication {
     /**
      * 加载配置
      */
-    private static final void loadConfiguration() {
+    private static void loadConfiguration() {
         System.setProperty("test", "test");
     }
 }
