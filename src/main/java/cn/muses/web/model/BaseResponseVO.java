@@ -1,8 +1,8 @@
 /*
- * Copyright 2019 All rights reserved.
+ * Copyright (c) 2023. Muses Co., Ltd. All rights reserved.
  */
 
-package cn.muses.web.model.dto;
+package cn.muses.web.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ import java.util.StringJoiner;
  * @author jervis
  * @date 2020/12/4.
  */
-public class BaseResponseDTO<T> {
+public class BaseResponseVO<T> {
 
     private Integer ret;
 
@@ -31,27 +31,27 @@ public class BaseResponseDTO<T> {
     /**
      * 默认构造函数
      */
-    public BaseResponseDTO() {
+    public BaseResponseVO() {
         this(DEFAULT_RESPONSE_RESULT.SUCCESS, null);
     }
 
-    public BaseResponseDTO(DEFAULT_RESPONSE_RESULT retEnum) {
+    public BaseResponseVO(DEFAULT_RESPONSE_RESULT retEnum) {
         this(retEnum, null);
     }
 
-    public BaseResponseDTO(T data) {
+    public BaseResponseVO(T data) {
         this(DEFAULT_RESPONSE_RESULT.SUCCESS, data);
     }
 
-    public BaseResponseDTO(DEFAULT_RESPONSE_RESULT retEnum, T data) {
+    public BaseResponseVO(DEFAULT_RESPONSE_RESULT retEnum, T data) {
         this(retEnum.value, data, null);
     }
 
-    public BaseResponseDTO(Integer ret, T data) {
+    public BaseResponseVO(Integer ret, T data) {
         this(ret, data, null);
     }
 
-    public BaseResponseDTO(Integer ret, T data, List<String> msg) {
+    public BaseResponseVO(Integer ret, T data, List<String> msg) {
         super();
         this.ret = ret;
         this.data = data;
@@ -113,7 +113,7 @@ public class BaseResponseDTO<T> {
         return msg;
     }
 
-    public BaseResponseDTO<T> add(String value) {
+    public BaseResponseVO<T> add(String value) {
         msg.add(value);
         return this;
     }
@@ -216,14 +216,14 @@ public class BaseResponseDTO<T> {
             return this;
         }
 
-        public BaseResponseDTO<T> build() {
-            return new BaseResponseDTO<T>(ret, data, msg);
+        public BaseResponseVO<T> build() {
+            return new BaseResponseVO<T>(ret, data, msg);
         }
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", BaseResponseDTO.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", BaseResponseVO.class.getSimpleName() + "[", "]")
             .add("ret=" + ret)
             .add("msg=" + msg)
             .add("data=" + data)

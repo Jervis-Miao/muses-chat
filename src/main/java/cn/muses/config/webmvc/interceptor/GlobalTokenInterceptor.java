@@ -12,7 +12,7 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 
 import cn.muses.constants.CacheConstant;
-import cn.muses.web.model.dto.BaseResponseDTO;
+import cn.muses.web.model.BaseResponseVO;
 import cn.muses.utils.TokenUtils;
 
 /**
@@ -42,13 +42,13 @@ public class GlobalTokenInterceptor extends AbstractInterceptor {
         String gToken;
         RBucket<GlobalUser> globalUser;
         if (StringUtils.isBlank(gToken = request.getHeader(GLOBAL_TOKEN_HEADER_KEY))) {
-            this.writeError(response, BaseResponseDTO.DEFAULT_RESPONSE_RESULT.PARAM_CHECK_FAIL,
+            this.writeError(response, BaseResponseVO.DEFAULT_RESPONSE_RESULT.PARAM_CHECK_FAIL,
                 "Access gToken missing, please check!");
             return false;
         } else if (!TokenUtils.checkToken(gToken)
             || null == (globalUser = this.redisson.getBucket(CacheConstant.Key.GLOBAL_TOKEN.getValue() + gToken))
                 .get()) {
-            this.writeError(response, BaseResponseDTO.DEFAULT_RESPONSE_RESULT.PARAM_CHECK_FAIL,
+            this.writeError(response, BaseResponseVO.DEFAULT_RESPONSE_RESULT.PARAM_CHECK_FAIL,
                 "The gToken is invalid or expired, please apply again!");
             return false;
         } else {

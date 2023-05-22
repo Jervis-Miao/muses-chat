@@ -2,8 +2,8 @@ package cn.muses.config.orika;
 
 import cn.muses.config.orika.converter.FileStreamConverter;
 import cn.muses.config.orika.converter.MapConverter;
-import cn.muses.web.model.dto.BaseRequestDTO;
-import cn.muses.web.model.dto.BaseResponseDTO;
+import cn.muses.web.model.BaseRequestVO;
+import cn.muses.web.model.BaseResponseVO;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.converter.ConverterFactory;
 
@@ -21,7 +21,7 @@ public class MusesMapperFactoryConfigurer extends AbstractOrikaMapperFactoryConf
 
     @Override
     protected void addFluidMapper(MapperFactory mapperFactory) {
-        mapperFactory.classMap(BaseRequestDTO.class, BaseResponseDTO.class)
+        mapperFactory.classMap(BaseRequestVO.class, BaseResponseVO.class)
             .field("uid", "ret")
             .fieldMap("uidEn", "msg").converter("mapConverter").add()
             .byDefault().register();

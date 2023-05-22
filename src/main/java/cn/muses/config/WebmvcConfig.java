@@ -33,7 +33,7 @@ import cn.muses.config.webmvc.interceptor.IApiInterceptorProcessor;
 import cn.muses.constants.MvcConstant;
 import cn.muses.exceptions.MusesException;
 import cn.muses.utils.SpringContextUtils;
-import cn.muses.web.model.dto.BaseResponseDTO;
+import cn.muses.web.model.BaseResponseVO;
 
 /**
  * @author jervis
@@ -84,9 +84,9 @@ public class WebmvcConfig {
                         logger.error(String.format("exception when request url: [%s]", request.getRequestURI()), ex);
                         String message = ex.getMessage();
                         if (ex instanceof MissingServletRequestParameterException) {
-                            BaseResponseDTO.DEFAULT_RESPONSE_RESULT errEnum =
-                                BaseResponseDTO.DEFAULT_RESPONSE_RESULT.MISS_REQUEST_PARAM;
-                            BaseResponseDTO<Void> dto = new BaseResponseDTO<>();
+                            BaseResponseVO.DEFAULT_RESPONSE_RESULT errEnum =
+                                BaseResponseVO.DEFAULT_RESPONSE_RESULT.MISS_REQUEST_PARAM;
+                            BaseResponseVO<Void> dto = new BaseResponseVO<>();
                             dto.setRet(errEnum.value());
                             dto.addError(String.format("%s: %s", errEnum.desc(), message));
                             response.setContentType("application/json;charset=UTF-8");
@@ -103,10 +103,10 @@ public class WebmvcConfig {
                             String msg;
                             if (StringUtils.isNotBlank(msg = ((MusesException)ex).getError().desc())
                                 || StringUtils.isNotBlank(msg = ex.getMessage())) {
-                                return handleEx(response, BaseResponseDTO.DEFAULT_RESPONSE_RESULT.BIZ_ERROR, ex);
+                                return handleEx(response, BaseResponseVO.DEFAULT_RESPONSE_RESULT.BIZ_ERROR, ex);
                             }
                         }
-                        return handleEx(response, BaseResponseDTO.DEFAULT_RESPONSE_RESULT.SYSTEM_ERROR, ex);
+                        return handleEx(response, BaseResponseVO.DEFAULT_RESPONSE_RESULT.SYSTEM_ERROR, ex);
                     }
                 });
             }
@@ -130,9 +130,9 @@ public class WebmvcConfig {
         return webMvcConfigurer;
     }
 
-    private ModelAndView handleEx(HttpServletResponse response, BaseResponseDTO.DEFAULT_RESPONSE_RESULT errEnum,
+    private ModelAndView handleEx(HttpServletResponse response, BaseResponseVO.DEFAULT_RESPONSE_RESULT errEnum,
         Exception ex) {
-        BaseResponseDTO<Void> dto = new BaseResponseDTO<Void>();
+        BaseResponseVO<Void> dto = new BaseResponseVO<Void>();
         logger.error("统一异常处理捕获未处理异常:", ex);
         dto.setRet(errEnum.value());
         dto.addError(StringUtils.isNotBlank(errEnum.desc()) ? errEnum.desc() : ex.getMessage());

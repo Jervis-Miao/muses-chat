@@ -1,9 +1,8 @@
-/**
- * Copyright 2022 XYZ Co., Ltd. All Rights Reserved
+/*
+ * Copyright (c) 2023. Muses Co., Ltd. All rights reserved.
  */
-package cn.muses.web.model.dto;
+package cn.muses.web.service.openai.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,19 +12,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @author jervis
  * @date 2023/3/21.
  */
-public class ChatRequestBodyDTO extends BaseDTO {
+public class ChatGptReqDTO extends OpenAiReqDTO {
     private static final long serialVersionUID = -3239829317699694073L;
-
-    /**
-     * ID of the model to use. See the model endpoint compatibility table for details on which <br/>
-     * models work with the Chat API.
-     */
-    private String model;
 
     /**
      * The messages to generate chat completions for, in the chat format.
      */
-    private List<Messages> messages;
+    private List<MessageDTO> messages;
 
     /**
      * What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output <br/>
@@ -89,29 +82,20 @@ public class ChatRequestBodyDTO extends BaseDTO {
      */
     private String user;
 
-    public ChatRequestBodyDTO() {
+    public ChatGptReqDTO() {
         super();
     }
 
-    public ChatRequestBodyDTO(String model, List<Messages> messages) {
-        super();
-        this.model = model;
+    public ChatGptReqDTO(String model, List<MessageDTO> messages) {
+        super(model);
         this.messages = messages;
     }
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public List<Messages> getMessages() {
+    public List<MessageDTO> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Messages> messages) {
+    public void setMessages(List<MessageDTO> messages) {
         this.messages = messages;
     }
 
@@ -190,7 +174,6 @@ public class ChatRequestBodyDTO extends BaseDTO {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .append("model", model)
             .append("messages", messages)
             .append("temperature", temperature)
             .append("top_p", top_p)
@@ -202,47 +185,5 @@ public class ChatRequestBodyDTO extends BaseDTO {
             .append("logit_bias", logit_bias)
             .append("user", user)
             .toString();
-    }
-
-    public static class Messages implements Serializable {
-        private static final long serialVersionUID = -3468469927878643188L;
-
-        private ROLE role;
-
-        private String content;
-
-        public Messages() {}
-
-        public Messages(String content) {
-            this(ROLE.user, content);
-        }
-
-        public Messages(ROLE role, String content) {
-            this.role = role;
-            this.content = content;
-        }
-
-        public ROLE getRole() {
-            return role;
-        }
-
-        public void setRole(ROLE role) {
-            this.role = role;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-    }
-
-    /** 角色 **/
-    public enum ROLE {
-
-        // 用户
-        user
     }
 }

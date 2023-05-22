@@ -1,8 +1,8 @@
 /*
-Copyright 2019 All rights reserved.
+ * Copyright (c) 2023. Muses Co., Ltd. All rights reserved.
  */
 
-package cn.muses.web.model.dto;
+package cn.muses.web.service;
 
 import java.io.Serializable;
 

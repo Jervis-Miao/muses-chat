@@ -15,14 +15,14 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import cn.muses.web.model.dto.ApiBaseResponseDTO;
+import cn.muses.web.model.ApiBaseResponseVO;
 
 /**
  * @author jervis
  * @date 2020/12/3.
  */
 @ControllerAdvice
-public class ApiResponseBody implements ResponseBodyAdvice<ApiBaseResponseDTO> {
+public class ApiResponseBody implements ResponseBodyAdvice<ApiBaseResponseVO> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
@@ -30,7 +30,7 @@ public class ApiResponseBody implements ResponseBodyAdvice<ApiBaseResponseDTO> {
         if (genericParameterType instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType)genericParameterType;
 
-            return isSame(parameterizedType.getRawType(), ApiBaseResponseDTO.class);
+            return isSame(parameterizedType.getRawType(), ApiBaseResponseVO.class);
         }
 
         return false;
@@ -47,7 +47,7 @@ public class ApiResponseBody implements ResponseBodyAdvice<ApiBaseResponseDTO> {
     }
 
     @Override
-    public ApiBaseResponseDTO beforeBodyWrite(ApiBaseResponseDTO baseResponseDTO, MethodParameter methodParameter,
+    public ApiBaseResponseVO beforeBodyWrite(ApiBaseResponseVO baseResponseDTO, MethodParameter methodParameter,
         MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest,
         ServerHttpResponse serverHttpResponse) {
         baseResponseDTO.setSignature("123123");

@@ -1,8 +1,8 @@
 /*
- * Copyright 2019 All rights reserved.
+ * Copyright (c) 2023. Muses Co., Ltd. All rights reserved.
  */
 
-package cn.muses.web.model.dto;
+package cn.muses.web.model;
 
 import java.util.StringJoiner;
 
@@ -10,7 +10,7 @@ import java.util.StringJoiner;
  * @author jervis
  * @date 2020/12/3.
  */
-public class ApiBaseResponseDTO<T> extends BaseResponseDTO<T> {
+public class ApiBaseResponseVO<T> extends BaseResponseVO<T> {
     private static final long serialVersionUID = 9018073932146610258L;
 
     private String signature;
@@ -25,7 +25,7 @@ public class ApiBaseResponseDTO<T> extends BaseResponseDTO<T> {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", ApiBaseResponseDTO.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", ApiBaseResponseVO.class.getSimpleName() + "[", "]")
             .add("signature='" + signature + "'")
             .toString();
     }

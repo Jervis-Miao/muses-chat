@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import cn.muses.web.model.dto.BaseResponseDTO;
+import cn.muses.web.model.BaseResponseVO;
 import cn.muses.utils.JsonMapper;
 import cn.muses.utils.SpringContextUtils;
 
@@ -51,10 +51,10 @@ public abstract class AbstractInterceptor extends HandlerInterceptorAdapter {
      * @param ret
      * @param errorMsg
      */
-    protected final void writeError(HttpServletResponse response, BaseResponseDTO.DEFAULT_RESPONSE_RESULT ret,
+    protected final void writeError(HttpServletResponse response, BaseResponseVO.DEFAULT_RESPONSE_RESULT ret,
         String errorMsg) {
         try {
-            BaseResponseDTO res = BaseResponseDTO.builder().ret(ret.value()).addError(errorMsg).build();
+            BaseResponseVO res = BaseResponseVO.builder().ret(ret.value()).addError(errorMsg).build();
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             Writer writer = response.getWriter();

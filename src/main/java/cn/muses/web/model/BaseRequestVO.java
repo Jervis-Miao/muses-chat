@@ -1,4 +1,8 @@
-package cn.muses.web.model.dto;
+/*
+ * Copyright (c) 2023. Muses Co., Ltd. All rights reserved.
+ */
+
+package cn.muses.web.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -7,7 +11,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author shijianpeng
  */
-public class BaseRequestDTO extends BaseDTO {
+public class BaseRequestVO extends BaseVO {
     private static final long serialVersionUID = -8647283601071609550L;
 
     /**
